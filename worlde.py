@@ -85,7 +85,7 @@ def init_game():
 
 init_game()
 
-start_button = Rect((150,300), (200,60))
+start_button = Rect((300,400), (400,60))
 play_again_button = Rect((150,680),(200,50))
 
 keyboard_layout = [list("QWERTYUIOP"),
