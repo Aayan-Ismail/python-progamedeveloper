@@ -180,22 +180,22 @@ while running:
             (bx,top,bw,bh)
         )
 
-pygame.draw.rect(
-    screen,
-    YELLOW,
-    (bx,top,bw,bh),
-    2  
-    )
-
-#windows
-    for wx, wy, on in window_state[idx]:
-    
-     if on:
         pygame.draw.rect(
             screen,
-            PURPLE,
-            (wx,wy,8,12)
+            YELLOW,
+            (bx,top,bw,bh),
+            2  
         )
+
+#windows
+        for wx, wy, on in window_state[idx]:
+    
+            if on:
+                pygame.draw.rect(
+                screen,
+                PURPLE,
+                (wx,wy,8,12)
+            )
 
 #title
     font = pygame.font.SysFont(
