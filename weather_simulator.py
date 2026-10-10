@@ -66,21 +66,21 @@ while running:
 
             pygame.draw.line(screen, YELLOW, (x1,y1), (x2,y2), 3)
 
-        if weather == "Rain":
+    if weather == "Rain":
             cloud_color = (70,70,70)
-        else:
+    else:
             cloud_color = WHITE
         
-        for cloud in clouds:
+    for cloud in clouds:
             
             pygame.draw.circle(screen, cloud_color, (cloud[0], cloud[1]), 25)
             pygame.draw.circle(screen, cloud_color, (cloud[0] + 25, cloud[1] - 10,), 30)
             pygame.draw.circle(screen, cloud_color, (cloud[0] + 55, cloud[1]), 25)
 
-        cloud[0] += 1
+            cloud[0] += 1
 
-        if cloud[0] > WIDTH + 60:
-            cloud[0] = -60
+            if cloud[0] > WIDTH + 60:
+                cloud[0] = -60
     
     if weather == "Rain":
 
@@ -89,11 +89,11 @@ while running:
                 screen, BLUE, (drop[0], drop[1]), (drop[0], drop[1] + 12), 2
             )
 
-        drop[1] += 10
+            drop[1] += 10
 
-        if drop[1] > HEIGHT:
-            drop[1] = random.randint(-100,0)
-            drop[0] = random.randint(0, WIDTH)
+            if drop[1] > HEIGHT:
+                drop[1] = random.randint(-100,0)
+                drop[0] = random.randint(0, WIDTH)
     
     if weather == "Snow":
         
@@ -104,9 +104,9 @@ while running:
             snow[1] += 2
             snow[0] += random.randint(-1,1)
 
-        if snow[1] > HEIGHT:
-            snow[1] = random.randint(-100,0)
-            snow[0] = random.randint(0,WIDTH)
+            if snow[1] > HEIGHT:
+                snow[1] = random.randint(-100,0)
+                snow[0] = random.randint(0,WIDTH)
         
     if weather == "Snow":
         ground_color = WHITE
@@ -152,20 +152,22 @@ while running:
 
     text = font.render("Current Weather: " + weather, True, BLACK)
     screen.blit(text, (610,535))
-
-    for event in pygame.event.get():
-        running = False
     
-    if event.type == pygame.MOUSEBUTTONDOWN:
+    for event in pygame.event.get():
         
-        if sun_button.collidepoint(event.pos):
-            weather = "Sunny"
-        
-        elif rain_button.collidepoint(event.pos):
-            weather = "Rain"
+        if event.type == pygame.QUIT:
+             running = False
 
-        elif snow_button.collidepoint(event.pos):
-            weather = "Snow"
+        if event.type == pygame.MOUSEBUTTONDOWN:
+        
+            if sun_button.collidepoint(event.pos):
+                weather = "Sunny"
+        
+            elif rain_button.collidepoint(event.pos):
+                weather = "Rain"
+
+            elif snow_button.collidepoint(event.pos):
+                weather = "Snow"
         
     pygame.display.update()
     clock.tick(60)
