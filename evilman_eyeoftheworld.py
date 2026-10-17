@@ -56,7 +56,7 @@ while player_y < 600:
     
     if keys[0]:
         if player_y > 0:
-            player_y -= -7
+            player_y -= 7
     
     elif keys[2]:
         if player_y < 536:
