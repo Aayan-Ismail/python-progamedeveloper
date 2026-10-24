@@ -12,7 +12,7 @@ pygame.display.set_caption("Lights On/Off")
 
 font = pygame.font.SysFont(None,30)
 
-lightblub = pygame.image.load("images/lightbulbs.jpg")
+#lightblub = pygame.image.load("images/lightbulbs.jpg")
 
 button = "On"
 
@@ -21,21 +21,28 @@ light = (255,255,255)
 
 running = True
 
-while running:    
+while running:
 
-    off_button = pygame.Rect(225,250,50,50)
-
-    on_button = pygame.Rect(275,750,50,50)
-
-    if on_button:
-        pygame.draw.rect(screen, light, on_button)
-        text = font.render("TURN ON", True, no_light)
-
+    if button == "On":
+        screen.fill(light)
     else:
-        pygame.draw.rect(screen, no_light, off_button)
-        text = font.render("TURN OFF", True, light)
-    screen.blit(text, (275,750))
-    screen.blit(text, (225,250))
+        screen.fill(no_light)
+
+    on_button = pygame.Rect(250,500,60,60)
+    off_button = pygame.Rect(750,500,60,60)
+
+    screen.blit(font.render("TURN ON", True, light), (250,500))
+    screen.blit(font.render("TURN OFF", True, no_light), (750,500))
+
+    #if on_button:
+        #pygame.draw.rect(screen, light, on_button)
+        #text = font.render("TURN ON", True, no_light)
+
+    #else:
+        #pygame.draw.rect(screen, no_light, off_button)
+       # text2 = font.render("TURN OFF", True, light)
+
+#screen.blit(font.render("Sunny", True, BLACK), (82, 540))
 
     for event in pygame.event.get():
         
@@ -50,8 +57,6 @@ while running:
             elif on_button.collidepoint(event.pos):
                 button = "On"
     
-
-        
     pygame.display.update()
     clock.tick(60)
 
