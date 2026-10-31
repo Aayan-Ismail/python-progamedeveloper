@@ -148,8 +148,8 @@ def draw_winner(text):
     draw_text = WINNER_FONT.render(text, True, WHITE)
 
     WIN.blit(draw_text,
-             WIDTH // 2 - draw_text.get_width() // 2,
-             HEIGHT // 2 - draw_text.get_height() // 2)
+             (WIDTH // 2 - draw_text.get_width() // 2,
+             HEIGHT // 2 - draw_text.get_height() // 2))
     
     pygame.display.update()
     pygame.time.delay(5000)
@@ -184,7 +184,7 @@ def main():
                     yellow_bullets.append(bullet)
                     BULLET_FIRE_SOUND.play()
 
-                if event.key == pygame.K_RSHIFT and len(red_bullets) < MAX_BULLETS:
+                if event.key == pygame.K_RCTRL and len(red_bullets) < MAX_BULLETS:
                     bullet = pygame.Rect(
                         red.x,
                         red.y + red.height // 2 - 2, 10 , 5)
