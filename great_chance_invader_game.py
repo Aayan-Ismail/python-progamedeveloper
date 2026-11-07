@@ -1,22 +1,59 @@
 import pygame
+import os
+import random
 from pygame.locals import *
 from time import *
 
 pygame.init()
 
-screen = pygame.display.set_mode((1000,1000))
+score = 0
+display_surface = pygame.display.set_mode((1800,1000))
 
-player = pygame.image.load("images/kenjaku-removebg-preview.png")
-background = pygame.image.load("images/amon evil.png")
+alien_destroyer = pygame.image.load("images/imperial_star_destroyer (1).png")
+d = alien_destroyer.get_rect()
 
-player_x = 500
+player = pygame.image.load("images/realer_lusankya.png")
+
+background = pygame.image.load("images/White_Comet.webp")
+
+g1 = pygame.mixer.Sound(os.path.join('images/gun_1.wav'))
+g2 = pygame.mixer.Sound(os.path.join('images/gun_2.wav'))
+g3 = pygame.mixer.Sound(os.path.join('images/gun_3.wav'))
+g4 = pygame.mixer.Sound(os.path.join('images/gun_4.wav'))
+
+g1.set_volume(0.5)
+g2.set_volume(0.5)
+g3.set_volume(0.5)
+g4.set_volume(0.5)
+
+enemy = pygame.image.load("images/Banana_Throne_Tech_Tree-removebg-modified.png")
+e = enemy.get_rect()
+
+b1 = pygame.mixer.Sound(os.path.join('images/banana_chargeup.mp3'))
+b2 = pygame.mixer.Sound(os.path.join('images/banana.wav'))
+
+b1.set_volume(0.5)
+
+turbolaser = [g1,g2,g3,g4]
+
+def alien_position():
+    d.x = random.randint(900,1600)
+    d.y = random.randint(100,900)
+    
+    return d.x, d.y
+
+e.x = 1150
+e.y = 470
+
+game_over = False
+
+player_x = 0
 player_y = 500
 
-keys = [False, False, False,False]
-
 while player_y < 1000:
-    screen.blit(background, (0,0))
-    screen.blit(player,(player_x, player_y))
+    display_surface.blit(background, (0,0))
+    display_surface.blit(player,(player_x, player_y))
+    display_surface.blit(alien_destroyer, d)
 
     pygame.display.flip()
 
@@ -26,49 +63,20 @@ while player_y < 1000:
             pygame.quit()
             exit(0)
         
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN:
+        
+            if d.collidepoint(event.pos):
+                sound = random.choice(turbolaser)
+                sound.play()
+                score += 1
+                d.x, d.y = alien_position()
+            else:
+                player_x += 100
+                display_surface.blit(enemy,e)
+                b1.play()
+                pygame.time.delay(1500)
+                b2.play()
+                pygame.time.delay(1250)
+                pygame.quit()
 
-            if event.key == K_UP:
-                keys[0] = True
-            
-            elif event.key == K_LEFT:
-                keys[1] = True
-
-            elif event.key == K_DOWN:
-                keys[2] = True
-            
-            elif event.key == K_RIGHT:
-                keys[3] = True
-
-        if event.type == pygame.KEYUP:
-
-            if event.key == pygame.K_UP:
-                keys[0] = False
-            
-            elif event.key == K_LEFT:
-                keys[1] = False
-
-            elif event.key == K_DOWN:
-                keys[2] = False
-            
-            elif event.key == K_RIGHT:
-                keys[3] = False
-    
-    if keys[0]:
-        if player_y > 0:
-            player_y -= 10
-    
-    elif keys[2]:
-        if player_y < 700:
-            player_y += 10
-    
-    if keys[1]:
-        if player_x > 0:
-            player_x -= 10
-    
-    elif keys[3]:
-        if player_x < 700:
-            player_x += 10
-    
-    player_y += 5
     sleep(0.05)
