@@ -36,6 +36,8 @@ b1.set_volume(0.5)
 
 turbolaser = [g1,g2,g3,g4]
 
+show_enemy = False
+
 def alien_position():
     d.x = random.randint(900,1600)
     d.y = random.randint(100,900)
@@ -45,7 +47,6 @@ def alien_position():
 e.x = 1150
 e.y = 470
 
-game_over = False
 
 player_x = 0
 player_y = 500
@@ -54,6 +55,10 @@ while player_y < 1000:
     display_surface.blit(background, (0,0))
     display_surface.blit(player,(player_x, player_y))
     display_surface.blit(alien_destroyer, d)
+
+    if show_enemy == True:
+        display_surface.blit(enemy,e)
+        pygame.draw.line(display_surface, (255, 255, 0), (865,575), (1200,575), 3)
 
     pygame.display.flip()
 
@@ -71,12 +76,9 @@ while player_y < 1000:
                 score += 1
                 d.x, d.y = alien_position()
             else:
-                player_x += 100
-                display_surface.blit(enemy,e)
+                show_enemy = True
+                pygame.display.update()
                 b1.play()
                 pygame.time.delay(1500)
                 b2.play()
                 pygame.time.delay(1250)
-                pygame.quit()
-
-    sleep(0.05)
